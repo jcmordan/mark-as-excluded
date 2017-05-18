@@ -8,7 +8,7 @@
 
 * Right click on a folder or file in the Explorer, choose **Mark as excluded**
 
-![Preview](./images/preview.PNG)
+![Preview](~/images/preview.PNG)
 
 ## License
 
