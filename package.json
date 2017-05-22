@@ -2,7 +2,7 @@
     "name": "mark-as-excluded",
     "displayName": "Mark as Exclude Context Menu",
     "description": "Exclude files and folders with right click",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "dependencies": {
         "vscode": "^1.0.0",
         "typescript": "^2.0.3"
