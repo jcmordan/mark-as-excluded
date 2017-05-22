@@ -15,7 +15,7 @@ export function activate(context: vscode.ExtensionContext) {
   }
 
   function getWorkspaceConfiguration() {
-    let configFile =  vscode.workspace.rootPath + '/.vscode/settings.json';
+    let configFile = vscode.workspace.rootPath + '/.vscode/settings.json';
     let jsonData = fs.readFileSync(configFile, { encoding: 'utf8' });
     return JSON.parse(jsonData);
   }
@@ -29,22 +29,24 @@ export function activate(context: vscode.ExtensionContext) {
 
   // The explorer/context menu contribution receives the URI to the file/folder
   let command = vscode.commands.registerCommand('extension.exclude', (e: vscode.Uri) => {
-    if(!e){
+    if (!e) {
+      vscode.window.showInformationMessage('Nothing is selected!');
       return;
     }
 
     let config = getWorkspaceConfiguration();
     let elementToIgnore = '**' + e.path.substring(vscode.workspace.rootPath.length + 1);
 
-    if(!config[filesExcludeKey]){
+    if (!config[filesExcludeKey]) {
       config[filesExcludeKey] = {};
     }
-    
+
     if (!config[filesExcludeKey][elementToIgnore]) {
       config[filesExcludeKey][elementToIgnore] = true;
     }
 
     saveConfiguration(config);
+    vscode.window.showInformationMessage('Excluded: ' + elementToIgnore);
   });
 
   context.subscriptions.push(command);

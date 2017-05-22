@@ -2,7 +2,20 @@
     "name": "mark-as-excluded",
     "displayName": "Mark as Exclude Context Menu",
     "description": "Exclude files and folders with right click",
-    "version": "0.0.1",
+    "version": "0.1.0",
+    "dependencies": {
+        "vscode": "^1.0.0",
+        "typescript": "^2.0.3"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jcmordan/mark-as-excluded"
+    },
+    "private": false,
+    "bugs": {
+        "email": "juan.mordan@gmail.com",
+        "url": "https://github.com/jcmordan/mark-as-excluded/issues"
+    },
     "publisher": "jcmordan",
     "engines": {
         "vscode": "^1.12.0"
