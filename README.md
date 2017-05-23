@@ -2,7 +2,8 @@
 
 ## Features
 
-* Menu: **Mark as excluded**: Add the selected file or folder to the exlude list in the ~/.vscode/settings.json file
+* Menu: **Mark as excluded**: Add the selected file/folder to the files.exlude list in the *~/.vscode/settings.json* file. It won't be appear in the file explorer.
+* Menu: **Ignore from Search**: Add the selected file/folder to the search.exlude list in the *~/.vscode/settings.json* file. It won't appear in the search results.
 
 ## Using
 

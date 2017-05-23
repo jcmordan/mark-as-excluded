@@ -9,6 +9,7 @@ import * as fs from 'fs';
 export function activate(context: vscode.ExtensionContext) {
 
   const filesExcludeKey = 'files.exclude';
+  const filesIgnoreKey = 'search.exclude';
 
   function getUserConfigurationFilePath() {
     return vscode.workspace.rootPath + '/.vscode/settings.json';
@@ -27,29 +28,56 @@ export function activate(context: vscode.ExtensionContext) {
     fs.writeFileSync(configFile, jsonData, { encoding: 'utf8' });
   }
 
-  // The explorer/context menu contribution receives the URI to the file/folder
-  let command = vscode.commands.registerCommand('extension.exclude', (e: vscode.Uri) => {
+  function applyConfiguration(e: vscode.Uri, config: any, key: string) {
+    let element = '**' + e.path.substring(vscode.workspace.rootPath.length + 1);
+
+    if (!config[key]) {
+      config[key] = {};
+    }
+
+    if (!config[key][element]) {
+      config[key][element] = true;
+    }
+
+    saveConfiguration(config);
+
+    if (key === 'files.exclude') {
+      vscode.window.showInformationMessage('Excluded from workspace: ' + element);
+    } else {
+      vscode.window.showInformationMessage('Excluded from search: ' + element);
+    }
+  }
+
+  function validateSelectedElement(e: vscode.Uri) {
     if (!e) {
       vscode.window.showInformationMessage('Nothing is selected!');
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  // The explorer/context menu contribution receives the URI to the file/folder
+  let excludeCommand = vscode.commands.registerCommand('extension.exclude', (e: vscode.Uri) => {
+    if (!validateSelectedElement(e)) {
       return;
     }
 
     let config = getWorkspaceConfiguration();
-    let elementToIgnore = '**' + e.path.substring(vscode.workspace.rootPath.length + 1);
-
-    if (!config[filesExcludeKey]) {
-      config[filesExcludeKey] = {};
-    }
-
-    if (!config[filesExcludeKey][elementToIgnore]) {
-      config[filesExcludeKey][elementToIgnore] = true;
-    }
-
-    saveConfiguration(config);
-    vscode.window.showInformationMessage('Excluded: ' + elementToIgnore);
+    applyConfiguration(e, config, filesExcludeKey);
   });
 
-  context.subscriptions.push(command);
+  let ignoreCommand = vscode.commands.registerCommand('extension.ignore', (e: vscode.Uri) => {
+    if (!validateSelectedElement(e)) {
+      return;
+    }
+
+    let config = getWorkspaceConfiguration();
+    applyConfiguration(e, config, filesIgnoreKey);
+  });
+
+  context.subscriptions.push(excludeCommand);
+  context.subscriptions.push(ignoreCommand);
 }
 
 // this method is called when your extension is deactivated

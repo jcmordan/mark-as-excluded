@@ -2,7 +2,7 @@
     "name": "mark-as-excluded",
     "displayName": "Mark as Exclude Context Menu",
     "description": "Exclude files and folders with right click",
-    "version": "0.1.1",
+    "version": "0.2.0",
     "dependencies": {
         "vscode": "^1.0.0",
         "typescript": "^2.0.3"
@@ -24,15 +24,19 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:extension.exclude"
+        "onCommand:extension.exclude",
+        "onCommand:extension.ignore"
     ],
     "main": "./out/src/extension",
     "contributes": {
         "commands": [
             {
                 "command": "extension.exclude",
-                "title": "Mark as excluded",
-                "category": "menus"
+                "title": "Mark as excluded"
+            },
+            {
+                "command": "extension.ignore",
+                "title": "Ignore from Search"
             }
         ],
         "menus": {
@@ -40,6 +44,10 @@
                 {
                     "command": "extension.exclude",
                     "title": "Mark as excluded"
+                },
+                {
+                    "command": "extension.ignore",
+                    "title": "Ignore from Search"
                 }
             ]
         }
@@ -53,7 +61,7 @@
     "devDependencies": {
         "typescript": "^2.0.3",
         "vscode": "^1.0.0",
-        "mocha": "^2.3.3",
+        "mocha": "^3.2.0",
         "@types/node": "^6.0.40",
         "@types/mocha": "^2.2.32"
     }
