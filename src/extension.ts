@@ -17,7 +17,12 @@ export function activate(context: vscode.ExtensionContext) {
 
   function getWorkspaceConfiguration() {
     let configFile = vscode.workspace.rootPath + '/.vscode/settings.json';
-    let jsonData = fs.readFileSync(configFile, { encoding: 'utf8' });
+  
+    let jsonData = '{}';
+    if(fs.exists(configFile)){
+      jsonData =     fs.readFileSync(configFile, { encoding: 'utf8' });
+    }
+
     return JSON.parse(jsonData);
   }
 
