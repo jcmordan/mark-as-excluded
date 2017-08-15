@@ -1,13 +1,5 @@
 # Mark as Exclude Context Menu
 
-## 0.2.1
-
-### Fixes
-
-* Error when setting.json file does not exist
-
-## 0.1.0
-
 ## Features
 
 * Menu: **Mark as excluded**: Add the selected file/folder to the files.exlude list in the *~/.vscode/settings.json* file. It won't be appear in the file explorer.
